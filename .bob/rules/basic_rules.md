@@ -1,0 +1,2 @@
+Always correctly check and make changes expecially with the python version, tests with pytest, package version.
+Create a changelog to every change you make like a summary under knowledge_brain as a folder. The summary will be a markdown with filename as summary-timestamp.md.

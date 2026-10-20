@@ -1,0 +1,16 @@
+SELECT movieid,
+       poster_link,
+       series_title,
+       released_year,
+       certificate,
+       runtime,
+       genre,
+       imdb_rating,
+       overview,
+       meta_score,
+       director,
+       no_of_votes,
+       gross,
+       'U' as op,
+       CURRENT_TIMESTAMP + INTERVAL '1 day' as transaction_ts
+FROM public.titles_top_100 where imdb_rating > 8.6;
