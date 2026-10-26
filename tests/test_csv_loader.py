@@ -30,7 +30,7 @@ class TestCSVLoader:
         assert first_row["IMDB_Rating"] == pytest.approx(9.3)
         assert first_row["Meta_score"] == 80
         assert first_row["Director"] == "Frank Darabont"
-        assert first_row["No_of_Votes"] == 2343110
+        assert first_row["votes_count"] == 2343110
         assert first_row["Gross"] == 28341469
 
     def test_load_and_clean_csv_nullable_fields(self):
