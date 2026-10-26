@@ -93,7 +93,9 @@ class TestRowTransformation:
         assert transformed["IMDB_Rating"] == pytest.approx(9.3)
         assert transformed["Meta_score"] == 80
         assert transformed["Gross"] == 28341469
-        assert transformed["No_of_Votes"] == 2343110
+        assert transformed["votes_count"] == 2343110
+        assert "Poster_Link" not in transformed
+        assert "No_of_Votes" not in transformed
         assert "Star1" not in transformed
         assert "Star2" not in transformed
 

@@ -77,18 +77,18 @@ class TestIngestionIntegration:
 
             # Verify sample record
             sample = conn.execute(
-                "SELECT Poster_Link, Series_Title, Released_Year, Certificate, Runtime, "
-                "Genre, IMDB_Rating, Overview, Meta_score, Director, No_of_Votes, Gross "
+                "SELECT Series_Title, Released_Year, Certificate, Runtime, "
+                "Genre, IMDB_Rating, Overview, Meta_score, Director, votes_count, Gross "
                 "FROM titles_top_100 WHERE Series_Title = 'The Shawshank Redemption'"
             ).fetchone()
             assert sample is not None
-            assert sample[1] == "The Shawshank Redemption"
-            assert sample[2] == 1994
-            assert sample[3] == "A"
-            assert sample[4] == 142
-            assert sample[5] == "Drama"
-            assert sample[6] == pytest.approx(9.3)
-            assert sample[8] == 80
-            assert sample[9] == "Frank Darabont"
-            assert sample[10] == 2343110
-            assert sample[11] == 28341469
+            assert sample[0] == "The Shawshank Redemption"
+            assert sample[1] == 1994
+            assert sample[2] == "A"
+            assert sample[3] == 142
+            assert sample[4] == "Drama"
+            assert sample[5] == pytest.approx(9.3)
+            assert sample[7] == 80
+            assert sample[8] == "Frank Darabont"
+            assert sample[9] == 2343110
+            assert sample[10] == 28341469

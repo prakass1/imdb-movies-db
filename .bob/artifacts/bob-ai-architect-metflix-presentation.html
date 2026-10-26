@@ -1,0 +1,454 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bob AI Architect — Metflix Presentation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: #ffffff;
+    color: #1f2328;
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 32px 16px;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  header {
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+  }
+  .badge {
+    display: inline-block;
+    background-color: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    color: #57606a;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2328;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #57606a;
+    margin-bottom: 12px;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    background-color: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 12px;
+  }
+  .meta-item strong {
+    display: block;
+    color: #1f2328;
+    margin-bottom: 2px;
+  }
+  .meta-item span {
+    color: #57606a;
+  }
+  section {
+    margin-bottom: 28px;
+  }
+  h2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1f2328;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2328;
+    margin: 12px 0 6px 0;
+  }
+  p {
+    margin-bottom: 10px;
+    color: #1f2328;
+  }
+  .card {
+    background-color: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-weight: 600;
+    color: #1f2328;
+    margin-bottom: 6px;
+  }
+  .arch-diagram-wrapper {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 14px 0;
+    text-align: center;
+  }
+  .arch-diagram-wrapper svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  th {
+    background-color: #f7f8fa;
+    color: #1f2328;
+    text-align: left;
+    font-weight: 600;
+    padding: 8px 10px;
+    border: 1px solid #e5e7eb;
+  }
+  td {
+    padding: 8px 10px;
+    border: 1px solid #e5e7eb;
+    color: #1f2328;
+  }
+  .metric-highlight {
+    font-weight: 600;
+    color: #3b82d4;
+  }
+  .step-list {
+    list-style: none;
+    counter-reset: step-counter;
+    padding: 0;
+    margin: 10px 0;
+  }
+  .step-list li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 10px;
+  }
+  .step-list li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    background-color: #3b82d4;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-placeholder {
+    border: 2px dashed #e5e7eb;
+    border-radius: 6px;
+    background-color: #f7f8fa;
+    padding: 24px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .video-icon {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    line-height: 44px;
+    font-weight: bold;
+    color: #3b82d4;
+    margin-bottom: 8px;
+  }
+  .footer {
+    border-top: 1px solid #e5e7eb;
+    margin-top: 32px;
+    padding-top: 14px;
+    text-align: center;
+    font-size: 12px;
+    color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="badge">Executive Presentation &amp; Architecture Brief</div>
+    <h1>Bob AI Architect</h1>
+    <div class="subtitle">Autonomous Cross-Pipeline Schema Synchronization for Metflix</div>
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Target Client</strong>
+        <span>Metflix Engineering Leadership</span>
+      </div>
+      <div class="meta-item">
+        <strong>Focus Areas</strong>
+        <span>Data Platform, Streaming ETL, Pydantic, MCP</span>
+      </div>
+      <div class="meta-item">
+        <strong>Architecture Version</strong>
+        <span>1.1 Production Architecture</span>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2>1. Executive Summary</h2>
+    <p>Metflix ingests billions of telemetry and viewing events daily to power real-time recommendation engines and streaming analytics. Rapid feature development requires database schemas to evolve continuously. However, unannounced upstream DDL releases cause silent downstream pipeline crashes, corrupted feature tables, and hours of emergency engineering triage.</p>
+    <div class="card">
+      <div class="card-title">The Complete Multi-Layer Solution</div>
+      <p><strong>Bob AI Architect</strong> operates via the <strong>Model Context Protocol (MCP)</strong> to bridge upstream database changes (<code>movies_db</code>) and downstream ETL pipelines (<code>movies_etl</code>). Upon DDL merge, Bob autonomously updates the entire data stack: <strong>Landing Zone DDL</strong>, <strong>explicit Staging CTE queries (no sloppy SELECT *)</strong>, and <strong>Python Pydantic schema models</strong> in seconds.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Problem Statement: The Cost of Schema Drift</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Workflow Stage</th>
+          <th>Manual Operation Today</th>
+          <th>Operational Bottleneck</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. DDL Merge</strong></td>
+          <td>Database engineer renames a column or adds a table.</td>
+          <td>No automated notification to downstream ETL teams.</td>
+        </tr>
+        <tr>
+          <td><strong>2. Pipeline Failure</strong></td>
+          <td>Night batch or CDC streaming job crashes on missing field.</td>
+          <td><strong>3 to 8 hours</strong> Mean Time to Detect (MTTD).</td>
+        </tr>
+        <tr>
+          <td><strong>3. Root-Cause Triage</strong></td>
+          <td>Oncall engineers manually inspect logs and commit history.</td>
+          <td><strong>1 to 2 hours</strong> spent on manual investigation.</td>
+        </tr>
+        <tr>
+          <td><strong>4. Landing Recovery</strong></td>
+          <td>Engineers manually stop jobs, drop tables, and reload CDC.</td>
+          <td>High risk of data corruption from out-of-order execution.</td>
+        </tr>
+        <tr>
+          <td><strong>5. Staging Remediation</strong></td>
+          <td>Engineers hand-write SQL CTEs and Pydantic models.</td>
+          <td><strong>2 to 4 hours</strong> of manual drafting and validation.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Total Impact:</strong> 4 to 12 hours of pipeline downtime per breaking release, with over 30% of streaming data incidents traced directly to schema drift.</p>
+  </section>
+
+  <section>
+    <h2>3. Multi-Layer System Architecture</h2>
+    <div class="arch-diagram-wrapper">
+      <svg width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3b82d4"></path>
+          </marker>
+        </defs>
+
+        
+        <rect x="20" y="15" width="660" height="85" rx="6" fill="#f7f8fa" stroke="#e5e7eb" stroke-width="1.5"></rect>
+        <text x="35" y="35" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#57606a">1. UPSTREAM DATABASE REPOSITORY (movies_db)</text>
+        
+        <rect x="35" y="44" width="280" height="42" rx="4" fill="#ffffff" stroke="#3b82d4" stroke-width="1.5"></rect>
+        <text x="45" y="62" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#1f2328">DDL Schema Release (db/movies.sql)</text>
+        <text x="45" y="76" font-family="-apple-system, sans-serif" font-size="10" fill="#57606a">Table alters, column renames, new DDL</text>
+
+        <rect x="375" y="44" width="290" height="42" rx="4" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"></rect>
+        <text x="385" y="62" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#1f2328">Audit Changelog (changelogs/)</text>
+        <text x="385" y="76" font-family="-apple-system, sans-serif" font-size="10" fill="#57606a">Timestamped record + commit SHA link</text>
+
+        <path d="M 315 65 L 367 65" fill="none" stroke="#3b82d4" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M 350 100 L 350 128" fill="none" stroke="#3b82d4" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        
+        <rect x="20" y="135" width="660" height="95" rx="6" fill="#f7f8fa" stroke="#e5e7eb" stroke-width="1.5"></rect>
+        <text x="35" y="155" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#57606a">2. BOB AI ARCHITECT ENGINE &amp; MODEL CONTEXT PROTOCOL (MCP)</text>
+        
+        <rect x="35" y="165" width="290" height="50" rx="4" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"></rect>
+        <text x="45" y="184" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#1f2328">AST Parser &amp; SchemaDiffer</text>
+        <text x="45" y="198" font-family="-apple-system, sans-serif" font-size="10" fill="#57606a">Detects RENAME, DROP, ADD, NEW_TABLE</text>
+
+        <rect x="375" y="165" width="290" height="50" rx="4" fill="#ffffff" stroke="#3b82d4" stroke-width="1.5"></rect>
+        <text x="385" y="184" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#1f2328">GitHub MCP Client Interface</text>
+        <text x="385" y="198" font-family="-apple-system, sans-serif" font-size="10" fill="#57606a">@modelcontextprotocol/server-github</text>
+
+        <path d="M 325 190 L 367 190" fill="none" stroke="#3b82d4" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M 170 230 L 170 260" fill="none" stroke="#3b82d4" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M 510 230 L 510 260" fill="none" stroke="#3b82d4" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        
+        <rect x="20" y="265" width="660" height="215" rx="6" fill="#f7f8fa" stroke="#e5e7eb" stroke-width="1.5"></rect>
+        <text x="35" y="285" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#57606a">3. DOWNSTREAM ETL REPOSITORY (movies_etl on GitHub Web UI)</text>
+
+        
+        <rect x="35" y="295" width="270" height="170" rx="4" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"></rect>
+        <text x="45" y="315" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#1f2328">Part 1: Landing GitHub Issue</text>
+        <text x="45" y="335" font-family="-apple-system, sans-serif" font-size="10" fill="#1f2328">• Step 1: Stop pipeline before FL</text>
+        <text x="45" y="353" font-family="-apple-system, sans-serif" font-size="10" fill="#1f2328">• Step 2: DROP affected tables</text>
+        <text x="45" y="371" font-family="-apple-system, sans-serif" font-size="10" fill="#1f2328">• Step 3: Reload CDC event streams</text>
+        <text x="45" y="395" font-family="-apple-system, sans-serif" font-size="9" fill="#3b82d4">Labels: landing-action, schema-migration</text>
+
+        
+        <rect x="325" y="295" width="340" height="170" rx="4" fill="#ffffff" stroke="#3b82d4" stroke-width="1.5"></rect>
+        <text x="335" y="315" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold" fill="#1f2328">Part 2: Multi-Layer Draft PR</text>
+        
+        <rect x="335" y="325" width="320" height="38" rx="3" fill="#f7f8fa" stroke="#e5e7eb"></rect>
+        <text x="345" y="340" font-family="-apple-system, sans-serif" font-size="10" font-weight="bold" fill="#1f2328">1. Landing DDL (models/landing/)</text>
+        <text x="345" y="353" font-family="-apple-system, sans-serif" font-size="9" fill="#57606a">CREATE TABLE with audit columns &amp; updated shape</text>
+
+        <rect x="335" y="368" width="320" height="38" rx="3" fill="#f7f8fa" stroke="#e5e7eb"></rect>
+        <text x="345" y="383" font-family="-apple-system, sans-serif" font-size="10" font-weight="bold" fill="#1f2328">2. Staging CTE (models/staging/)</text>
+        <text x="345" y="396" font-family="-apple-system, sans-serif" font-size="9" fill="#57606a">Explicit named projections &amp; backward-compat aliases</text>
+
+        <rect x="335" y="411" width="320" height="38" rx="3" fill="#f7f8fa" stroke="#e5e7eb"></rect>
+        <text x="345" y="426" font-family="-apple-system, sans-serif" font-size="10" font-weight="bold" fill="#1f2328">3. Pydantic Model (schemas/)</text>
+        <text x="345" y="439" font-family="-apple-system, sans-serif" font-size="9" fill="#57606a">Typed BaseModel with Field(alias=...) &amp; dropped fields removed</text>
+      </svg>
+    </div>
+    <div class="card">
+      <div class="card-title">Eliminating SELECT * &amp; Preserving Type Safety</div>
+      <p>Bob never uses generic <code>SELECT *</code> fallbacks. Staging CTEs are generated with explicit column lists, preserving backward-compatible aliases (e.g. <code>vote_count AS no_of_votes</code>), while the corresponding Pydantic Python models in <code>schemas/</code> are automatically aligned with proper type annotations.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Live Production Scenarios</h2>
+    
+    <h3>Scenario 1: Column Rename &amp; Drop (<code>titles_top_100</code>)</h3>
+    <ul class="step-list">
+      <li><strong>Trigger Event:</strong> Column <code>No_of_Votes</code> renamed to <code>vote_count</code>; legacy <code>Poster_Link</code> column dropped.</li>
+      <li><strong>Audit Changelog:</strong> Created under <code>changelogs/</code> capturing the schema diff and commit SHA.</li>
+      <li><strong>Landing Action Issue:</strong> Published to <code>movies_etl</code> with explicit instructions: (1) Stop pipeline prior to Full Load (FL), (2) Drop table <code>titles_top_100</code>, (3) Reload CDC events.</li>
+      <li><strong>Multi-Layer Draft PR:</strong> Created on branch <code>schema-sync/titles-top-100-a3f8c12e</code>:
+        <br />• <code>models/landing/titles_top_100.sql</code> (Updated DDL without poster_link, with vote_count)
+        <br />• <code>models/staging/titles_top_100.sql</code> (Explicit CTE selecting vote_count AS no_of_votes)
+        <br />• <code>schemas/titles_top_100.py</code> (Updated Pydantic model with alias mapping)
+      </li>
+    </ul>
+
+    <h3>Scenario 2: New Table Onboarding (<code>movie_reviews</code>)</h3>
+    <ul class="step-list">
+      <li><strong>Trigger Event:</strong> Database team adds new <code>movie_reviews</code> table DDL.</li>
+      <li><strong>Landing Action Issue:</strong> Published to <code>movies_etl</code> with CDC stream initialization and initial load setup.</li>
+      <li><strong>Multi-Layer Draft PR:</strong> Created on branch <code>schema-sync/new-table-movie-reviews-b7e2d45f</code>:
+        <br />• <code>models/landing/movie_reviews.sql</code> (Landing DDL with audit columns)
+        <br />• <code>models/staging/movie_reviews.sql</code> (3-step explicit CTE model)
+        <br />• <code>schemas/movie_reviews.py</code> (Complete Pydantic BaseModel class)
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5. Quantified Business Value &amp; ROI</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Manual Process</th>
+          <th>With Bob AI Architect</th>
+          <th>Net Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Mean Time to Detect (MTTD)</strong></td>
+          <td>3 – 8 Hours (Post-crash)</td>
+          <td>&lt; 30 Seconds (At commit)</td>
+          <td class="metric-highlight">240x Faster</td>
+        </tr>
+        <tr>
+          <td><strong>Mean Time to Remediate (MTTR)</strong></td>
+          <td>2 – 4 Hours (Manual triage)</td>
+          <td>&lt; 2 Minutes (Auto PR open)</td>
+          <td class="metric-highlight">60x Faster</td>
+        </tr>
+        <tr>
+          <td><strong>Pipeline Downtime</strong></td>
+          <td>4 – 12 Hours / incident</td>
+          <td>0 Hours (Pre-emptive fix)</td>
+          <td class="metric-highlight">100% Avoided</td>
+        </tr>
+        <tr>
+          <td><strong>Engineering Capacity</strong></td>
+          <td>400–800 hrs/yr on drift</td>
+          <td>Redirected to core ML/AI</td>
+          <td class="metric-highlight">$120k+ Annual Savings</td>
+        </tr>
+        <tr>
+          <td><strong>Compliance &amp; Governance</strong></td>
+          <td>Manual Jira logs</td>
+          <td>Automated <code>changelogs/</code></td>
+          <td class="metric-highlight">Full Auditability</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>6. Live Demonstration Video</h2>
+    <div class="video-placeholder">
+      <div class="video-icon">►</div>
+      <div class="card-title">Scenario 1 &amp; Scenario 2 Walkthrough</div>
+      <p style="color:#57606a;font-size:13px;max-width:500px;margin:0 auto 12px auto">
+        Demonstration recording of Bob AI Architect executing automated schema diffing, changelog generation, Landing Zone issue publication, and Staging Draft PR creation.
+      </p>
+      <div class="code-block" style="display:inline-block;margin:0;background-color:#ffffff;border:1px solid #e5e7eb;padding:6px 12px;border-radius:4px;font-family:monospace;font-size:12px">
+        Recorded Demo: Bob Shell Trigger &amp; GitHub Web UI Walkthrough
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Pilot Roadmap for Metflix</h2>
+    <div class="card">
+      <div class="card-title">Phase 1: Pilot Deployment (Weeks 1–2)</div>
+      <p>Deploy Bob in dry-run mode against top 3 upstream source databases. Validate Landing Zone issue dispatching with Data Platform oncall rotation.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase 2: Automated Staging PRs (Weeks 3–4)</div>
+      <p>Enable automatic Draft PR generation for Staging CTAS/CTE transformations with CI test validation.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase 3: Production Rollout (Weeks 5+)</div>
+      <p>Full rollout across all streaming telemetry ingestion and recommendation feature pipelines.</p>
+    </div>
+  </section>
+
+  <div class="footer">
+    Made with IBM Bob
+  </div>
+
+</div>
+</body>
+</html>

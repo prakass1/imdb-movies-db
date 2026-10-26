@@ -16,6 +16,9 @@ import logging
 from pathlib import Path
 from uuid import uuid4
 import psycopg
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -23,11 +26,10 @@ DEFAULT_SQL_PATH = "db/movies.sql"
 CONNECT_TIMEOUT_SECONDS = 10
 
 # ---------------------------------------------------------------------------
-# Target columns (matches db/movies.sql, Star1-Star4 excluded)
+# Target columns (matches db/movies.sql, Poster_Link and Star1-Star4 excluded)
 # ---------------------------------------------------------------------------
 TARGET_COLUMNS = (
     "MovieId",
-    "Poster_Link",
     "Series_Title",
     "Released_Year",
     "Certificate",
@@ -37,7 +39,7 @@ TARGET_COLUMNS = (
     "Overview",
     "Meta_score",
     "Director",
-    "No_of_Votes",
+    "votes_count",
     "Gross",
 )
 
@@ -136,9 +138,9 @@ def parse_string(value: str) -> str | None:
 # ---------------------------------------------------------------------------
 
 def transform_row(row: dict) -> dict:
-    """Map a raw CSV row dict to the 12-column target schema."""
+    """Map a raw CSV row dict to the target schema."""
     return {
-        "Poster_Link": parse_string(row.get("Poster_Link", "")),
+        "MovieId": parse_string(row.get("MovieId", "")) if "MovieId" in row else None,
         "Series_Title": parse_string(row.get("Series_Title", "")),
         "Released_Year": parse_released_year(row.get("Released_Year", "")),
         "Certificate": parse_string(row.get("Certificate", "")),
@@ -148,7 +150,8 @@ def transform_row(row: dict) -> dict:
         "Overview": parse_string(row.get("Overview", "")),
         "Meta_score": parse_meta_score(row.get("Meta_score", "")),
         "Director": parse_string(row.get("Director", "")),
-        "No_of_Votes": parse_no_of_votes(row.get("No_of_Votes", "")),
+        # The source CSV header is still "No_of_Votes"; the target column is votes_count.
+        "votes_count": parse_no_of_votes(row.get("No_of_Votes", "")),
         "Gross": parse_gross(row.get("Gross", "")),
     }
 
@@ -160,7 +163,7 @@ def transform_row(row: dict) -> dict:
 def load_and_clean_csv(filepath: str) -> list[dict]:
     """Read *filepath*, clean every row, and return a list of cleaned dicts.
 
-    Only the 12 TARGET_COLUMNS are retained; Star1-Star4 are dropped.
+    Only the 12 TARGET_COLUMNS are retained; Poster_Link and Star1-Star4 are dropped.
     """
     cleaned_rows: list[dict] = []
     with open(filepath, newline="", encoding="utf-8") as fh:
@@ -364,7 +367,7 @@ def verify_csv(filepath: str = "data/imdb_top_1000.csv") -> None:
     _assert(first["Gross"] == 28341469, f"Row 0 Gross: {first['Gross']}")
     _assert(first["Released_Year"] == 1994, f"Row 0 Released_Year: {first['Released_Year']}")
     _assert(isinstance(first["IMDB_Rating"], float), "Row 0 IMDB_Rating should be float")
-    _assert(isinstance(first["No_of_Votes"], int), "Row 0 No_of_Votes should be int")
+    _assert(isinstance(first["votes_count"], int), "Row 0 votes_count should be int")
 
     # Nullable fields must be None (not empty string) when absent
     none_meta = [r for r in rows if r["Meta_score"] is None]
@@ -451,26 +454,26 @@ def verify_pipeline() -> None:
             _assert(type_map.get("meta_score") == "bigint", f"Meta_score type: {type_map.get('meta_score')}")
             _assert(type_map.get("released_year") == "bigint", f"Released_Year type: {type_map.get('released_year')}")
             _assert(type_map.get("imdb_rating") == "double precision", f"IMDB_Rating type: {type_map.get('imdb_rating')}")
-            _assert(type_map.get("no_of_votes") == "bigint", f"No_of_Votes type: {type_map.get('no_of_votes')}")
+            _assert(type_map.get("votes_count") == "bigint", f"votes_count type: {type_map.get('votes_count')}")
 
             # 3. Sample record verification (The Shawshank Redemption)
             cur.execute(
-                "SELECT Poster_Link, Series_Title, Released_Year, Certificate, Runtime, "
-                "Genre, IMDB_Rating, Overview, Meta_score, Director, No_of_Votes, Gross "
+                "SELECT Series_Title, Released_Year, Certificate, Runtime, "
+                "Genre, IMDB_Rating, Overview, Meta_score, Director, votes_count, Gross "
                 "FROM titles_top_100 WHERE Series_Title = 'The Shawshank Redemption'"
             )
             sample = cur.fetchone()
             _assert(sample is not None, "Sample record 'The Shawshank Redemption' not found")
-            _assert(sample[1] == "The Shawshank Redemption", "Title mismatch")
-            _assert(sample[2] == 1994 and isinstance(sample[2], int), "Released_Year should be int 1994")
-            _assert(sample[3] == "A", "Certificate mismatch")
-            _assert(sample[4] == 142 and isinstance(sample[4], int), "Runtime should be int 142")
-            _assert(sample[5] == "Drama", "Genre mismatch")
-            _assert(sample[6] == 9.3 and isinstance(sample[6], float), "IMDB_Rating should be float 9.3")
-            _assert(sample[8] == 80 and isinstance(sample[8], int), "Meta_score should be int 80")
-            _assert(sample[9] == "Frank Darabont", "Director mismatch")
-            _assert(sample[10] == 2343110 and isinstance(sample[10], int), "No_of_Votes should be int 2343110")
-            _assert(sample[11] == 28341469 and isinstance(sample[11], int), "Gross should be int 28341469")
+            _assert(sample[0] == "The Shawshank Redemption", "Title mismatch")
+            _assert(sample[1] == 1994 and isinstance(sample[1], int), "Released_Year should be int 1994")
+            _assert(sample[2] == "A", "Certificate mismatch")
+            _assert(sample[3] == 142 and isinstance(sample[3], int), "Runtime should be int 142")
+            _assert(sample[4] == "Drama", "Genre mismatch")
+            _assert(sample[5] == 9.3 and isinstance(sample[5], float), "IMDB_Rating should be float 9.3")
+            _assert(sample[7] == 80 and isinstance(sample[7], int), "Meta_score should be int 80")
+            _assert(sample[8] == "Frank Darabont", "Director mismatch")
+            _assert(sample[9] == 2343110 and isinstance(sample[9], int), "votes_count should be int 2343110")
+            _assert(sample[10] == 28341469 and isinstance(sample[10], int), "Gross should be int 28341469")
 
             # 4. Nullable fields verification
             cur.execute("SELECT count(*) FROM titles_top_100 WHERE Meta_score IS NULL")
